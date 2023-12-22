@@ -11,8 +11,8 @@ load_dotenv('program.env')
 class DatabaseConnectionPool:
     def __init__(self):
 
-        self.DB_HOST = 'localhost'
-        self.DB_PORT = '5432'
+        self.DB_HOST = os.getenv('DBHOST')
+        self.DB_PORT = os.getenv('DBPORT')
         self.DB_NAME = os.getenv('DBNAME')
         self.DB_USER = os.getenv('USER')
         self.DB_PASSWORD = os.getenv('PASSWORD')
@@ -41,24 +41,26 @@ class DatabaseConnectionPool:
         self.connection_pool.closeall()
 
 """
+# use example
+
 from database import DatabaseConnectionPool
 import tabulate
 
-# 实例化连接池类
+# create connection pool
 db_pool = DatabaseConnectionPool()
 
-# 获取连接
+# get connection
 connection = db_pool.get_connection()
 
-# 使用连接执行数据库操作
+# execute query operation
 cursor = connection.cursor()
 cursor.execute("SELECT * FROM sales")
 result = cursor.fetchall()
 print(tabulate.tabulate(result, headers="keys", tablefmt="simple"))
 
-# 释放连接
+# release connection
 db_pool.release_connection(connection)
 
-# 关闭所有连接（如果需要在程序结束时关闭所有连接）
+# close connection
 # db_pool.close_all_connections()
 """

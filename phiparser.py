@@ -59,8 +59,8 @@ class PhiParser:
                         self.phi_dict["NUMBER_OF_GROUPING_VARIABLES_n"] = int(result[0])
 
                     case "GROUPING ATTRIBUTES(V):":
-                        list = result[0].split(",")
-                        for item in list:
+                        res = result[0].split(",")
+                        for item in res:
                             item = item.strip()
                             self.phi_dict["GROUPING_ATTRIBUTES_v"].append(item)
 
@@ -85,7 +85,9 @@ class PhiParser:
             s = s.strip()
             # check if string start with Non digits, if not then it must be non-aggregate select attribute
             if s[0].isdigit():
+
                 temp = s.split('_')
+
                 operation = None
 
                 if typeName == "SELECT_ATTRIBUTE_s":
@@ -178,21 +180,21 @@ class Unit_condition:
         print("condition: " + self.condition)
 
 
-input_string = '''
-        SELECT ATTRIBUTE(S):
-        cust
-        NUMBER OF GROUPING VARIABLES(n):
-        1
-        GROUPING ATTRIBUTES(V):
-        cust
-        F - VECT([F]):
-        1_sum_quant
-        SELECT CONDITION - VECT([σ]):
-        1.state = 'NY'
-        '''
-
-parser = PhiParser()
-parser.parse_input_string(input_string)
-
-# 打印解析结果
-parser.show_dict()
+# input_string = '''
+#         SELECT ATTRIBUTE(S):
+#         cust
+#         NUMBER OF GROUPING VARIABLES(n):
+#         1
+#         GROUPING ATTRIBUTES(V):
+#         cust
+#         F - VECT([F]):
+#         1_sum_quant
+#         SELECT CONDITION - VECT([σ]):
+#         1.state = 'NY'
+#         '''
+#
+# parser = PhiParser()
+# parser.parse_input_string(input_string)
+#
+# # 打印解析结果
+#parser.show_dict()
